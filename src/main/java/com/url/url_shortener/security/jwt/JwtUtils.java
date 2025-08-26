@@ -10,14 +10,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@Component
 public class JwtUtils {
-    @Value("${jwt.srcret}")
+    @Value("${jwt.secret}")
     private String jwtSecret;
 
     @Value("${jwt.expiration}")
