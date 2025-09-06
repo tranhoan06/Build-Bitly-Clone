@@ -5,6 +5,7 @@ import com.url.url_shortener.dtos.RegistterRequest;
 import com.url.url_shortener.models.User;
 import com.url.url_shortener.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/auth")
-@AllArgsConstructor
 public class AuthController {
+    @Autowired
+    private final UserService userService;
 
-    private UserService userService;
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/public/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {

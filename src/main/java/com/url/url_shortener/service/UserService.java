@@ -10,17 +10,23 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
 public class UserService {
-    private PasswordEncoder passwordEncoder;
-    private UserRepository userRepository;
-    private AuthenticationManager authenticationManager;
-    private JwtUtils jwtUtils;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtUtils jwtUtils;
 
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
+    }
 
     public User registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -35,5 +41,11 @@ public class UserService {
         UserDetailImpl userDetails = (UserDetailImpl) authentication.getPrincipal();
         String jwt = jwtUtils.generateToken(userDetails);
         return new JwtAuthenticationResponse(jwt);
+    }
+
+    public User findByUsername(String name) {
+        return userRepository.findByUsername(name).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with username: " + name)
+        );
     }
 }
