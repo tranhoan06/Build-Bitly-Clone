@@ -36,8 +36,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (userDetails != null) {
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request)); // Thêm thông tin bổ sung về request vào Authentication
+                    SecurityContextHolder.getContext().setAuthentication(authentication); // Thực hiện lưu thông tin xác thực
                 }
             }
         } catch (Exception e) {

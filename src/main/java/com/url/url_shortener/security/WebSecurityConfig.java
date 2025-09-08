@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     private UserDetailsServiceImpl userDetailsService;
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+    public JwtAuthenticationFilter jwtAuthenticationFilter() { // filter tùy chỉnh để đọc JWT
         return new JwtAuthenticationFilter();
     }
 
@@ -39,12 +39,12 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception { // gom tất cả AuthenticationProvider
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider() { // Xác thực username/password thông qua userDetailsService
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
