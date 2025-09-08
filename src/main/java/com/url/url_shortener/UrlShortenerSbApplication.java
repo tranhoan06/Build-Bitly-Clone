@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class UrlShortenerSbApplication {
-	// 03:56:29
+	// 04:26:08
 	public static void main(String[] args) {
 		SpringApplication.run(UrlShortenerSbApplication.class, args);
 	}
