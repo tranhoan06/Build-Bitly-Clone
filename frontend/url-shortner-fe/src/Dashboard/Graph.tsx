@@ -18,20 +18,9 @@ ChartJS.register(
   Legend,
   Filler
 );
-
-type GraphDataItem = {
-  id: number;
-  clickDate: string;
-  count: number;
-};
-
-type GraphProps = {
-  graphData: GraphDataItem[];
-};
-
-const Graph: React.FC<GraphProps> = ({ graphData }) => {
-  const labels = graphData?.map((item, i) => `${item.clickDate}`);
-  const userPerDaya = graphData?.map((item) => item.count);
+const Graph: React.FC<any> = ({ graphData }) => {
+  const labels = graphData?.map((item: any, i: number) => `${item.clickDate}`);
+  const userPerDaya = graphData?.map((item: any) => item.count);
 
   const data = {
     labels:
