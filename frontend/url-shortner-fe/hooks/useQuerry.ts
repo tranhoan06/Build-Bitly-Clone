@@ -23,7 +23,7 @@ export const useFetchMyShortUrls = (
   token: string,
   onError?: (err: unknown) => void
 ) => {
-  return useQuery<ShortUrl[], Error>({
+  return useQuery<any[], Error>({
     queryKey: ["my-shortenurls"],
     queryFn: async () => {
       const response = await api.get<ShortUrl[]>("/api/urls/myurls", {
